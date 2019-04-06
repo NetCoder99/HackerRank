@@ -44,3 +44,7 @@ body {
     width: 4em;
     height: 2em;
 }
+
+.red {
+    background-color: #f2dede;
+}

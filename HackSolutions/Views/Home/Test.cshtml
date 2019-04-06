@@ -1,20 +1,39 @@
 ﻿@model HackSolutions.Models.TestObj;
-@{
-    ViewData["Title"] = "Test";
-}
+@{ ViewData["Title"] = "Test"; }
 
 <h2>Test</h2>
-<form asp-action="Test" asp-controller="Home">
-    <ul>
-        @for (int i = 0; i < Model.TestList.Count; i++)
-        {
-            <li><label class="control-label" >@Model.TestList[i].str1</label></li>
-            <li><label for="@Model.TestList[i].str1.ToString()" class="control-label"></label></li>
-            <li><label asp-for="@Model.TestList[i].int1" /></li>
-
-            
-            <li><input asp-for="@Model.TestList[i].str1" /></li>
-            <li><input asp-for="@Model.TestList[i].int1" /></li>
-        }
-    </ul>
+<form asp-action="Test" asp-controller="Home" method="post" id="myform">
+    <div class="row">
+        <div class="col-xs-2" style="width:5em;">
+            <input asp-for="@Model.str1" class="form-control small_inp_box" />
+        </div>
+    </div>
+    <div style="clear:both; margin-top:1em;"></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div style="clear:both; margin-top:1em;">
+        <label id="lbl_msg1"></label>
+    </div>
+    <input type="submit" name="Submit" class="btn btn-outline-dark" />
 </form>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#lbl_msg1").text("Ready");
+            $(".small_inp_box:first").focus();
+        });
+        $(".small_inp_box").focusout(function () {
+            var fv = $('#myform').validate();
+            if (!$(this).valid()) {
+                $(this).addClass("red");
+                console.log("invalid!");
+                
+            }
+            else {
+                $(this).removeClass("red");
+                console.log("valid!");
+            }
+        })
+    </script>
+}
+

@@ -16,9 +16,13 @@ namespace HackerRank.Controllers
         public IActionResult Test()
         {
             TestObj model = new TestObj();
-            model.TestList = new List<TestObj>();
-            model.TestList.Add(new TestObj("test1", 1));
-            model.TestList.Add(new TestObj("test2", 2));
+            model = new TestObj("test1");
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Test(TestObj model)
+        {
             return View(model);
         }
 
@@ -28,7 +32,7 @@ namespace HackerRank.Controllers
 
             TripletModel model = new TripletModel();
             model.TripletList = new List<TripletModel.Rating>();
-            model.TripletList.Add(new TripletModel.Rating("Alice", 0, 0, 0));
+            model.TripletList.Add(new TripletModel.Rating("Alice", 0, 1, 1));
             model.TripletList.Add(new TripletModel.Rating("Bob", 100, 100, 100));
 
             return View(model);
@@ -42,6 +46,22 @@ namespace HackerRank.Controllers
                 model.TripletList.Add(new TripletModel.Rating("Alice", 0, 0, 0));
                 model.TripletList.Add(new TripletModel.Rating("Bob",100, 100, 100));
             }
+
+            int[] winner = new int[] { 0, 0 };
+
+            if (model.TripletList[0].rating1 > model.TripletList[1].rating1) { winner[0]++; }
+            if (model.TripletList[0].rating1 < model.TripletList[1].rating1) { winner[1]++; }
+
+            if (model.TripletList[0].rating2 > model.TripletList[1].rating2) { winner[0]++; }
+            if (model.TripletList[0].rating2 < model.TripletList[1].rating2) { winner[1]++; }
+
+            if (model.TripletList[0].rating3 > model.TripletList[1].rating3) { winner[0]++; }
+            if (model.TripletList[0].rating3 < model.TripletList[1].rating3) { winner[1]++; }
+
+            ViewData["winner_array"] = winner;
+            ViewData["winner_name"] = "Tied";
+            if (winner[0] > winner[1]) { ViewData["winner_name"] = "Alice"; }
+            if (winner[0] < winner[1]) { ViewData["winner_name"] = "Bob"; }
 
             return View(model);
         }

@@ -12,14 +12,23 @@ namespace HackSolutions.Models
         // spaces, no integer can be greater then 99
         public class Rating
         {
+
             [DataType(DataType.Text)]
             public string name { get; set; }
 
             [DataType(DataType.Text)]
+            [Range(1, 100)]
+            [Required(ErrorMessage = "Value must be between 1 and 100.")]
             public int rating1 { get; set; }
+
             [DataType(DataType.Text)]
+            [Range(1, 100)]
+            [Required(ErrorMessage = "Value must be between 1 and 100.")]
             public int rating2 { get; set; }
+
             [DataType(DataType.Text)]
+            [Range(1, 100)]
+            [Required(ErrorMessage = "Value must be between 1 and 100.")]
             public int rating3 { get; set; }
 
             public Rating() { }
